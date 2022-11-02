@@ -1,12 +1,21 @@
 {% extends 'base.html' %}
 {%  block content %}
-<h1>Delete Post.. </h1>
-<br/><br/>
-<h2>Delete:{{post.title}} </h2><br/>
-<form method="post">
-    {% csrf_token %}
-    <strong>Are you sure?</strong><br/>
-    <button  class="btn btn-secondary">Delete post</button>
-</form>
-</div>
+{% if user.is_authenticated  %}
+    {% if user.id == post.author.id  %}
+            <h1>Delete Post.. </h1>
+            <br/><br/>
+            <h2>Delete:{{post.title}} </h2><br/>
+            <form method="post">
+                {% csrf_token %}
+                <strong>Are you sure?</strong><br/>
+                <button  class="btn btn-secondary">Delete post</button>
+            </form>
+            </div>
+    {% else %}    
+            How dare you delete other's post !!
+    {% endif %}         
+{% else %}
+    You are in wrong page<br/>
+    Thief!!
+{% endif %}
 {% endblock %}

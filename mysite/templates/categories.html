@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{%  block content %}
+{%  if category_post %}
+    <h1>{{categories}} Category </h1>
+    <ul>   
+    {%   for post in category_post %}
+
+    <body >  
+        <li>
+            <a href= "{% url 'blog_detail' post.pk %}">{{post.title}}</a>-{{post.category}}-<small>
+            
+            {%  if user.is_authenticated %}
+               {% if user.id == post.author.id  %}
+                    <a href="{% url 'blog_detail_edit' post.pk %}">Edit</a>-
+                    <a href="{% url 'blog_detail_delete' post.pk %}">Delete</a><br/>
+              {% endif %}
+           {% endif %}
+            </small>
+            {{post.author.email}}<br>
+        </li>
+    </body>
+
+    {%    endfor %}
+    </table>   
+    </ul>
+{%  else %}
+Ding!! Wrong Page !! Get Out
+{% endif  %}
+{% endblock %}
